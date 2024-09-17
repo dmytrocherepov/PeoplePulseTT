@@ -23,7 +23,7 @@ public class BaggageController {
             summary = "Check-in creation ",
             description = "Returns true if check-in is success"
     )
-    public Boolean check(
+    public Boolean checkBaggage(
             @PathVariable("baggageId") @Positive Long baggageId,
             @PathVariable("destinationId") @Positive Long destinationId
     ) {
