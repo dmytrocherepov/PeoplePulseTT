@@ -23,11 +23,11 @@ public class DiscountServiceImpl implements DiscountService {
     private final List<Double> discountRates = Arrays.asList(0.1, 0.5, 0.6);
 
     @Override
-    public BigDecimal discount(Long couponId, BigDecimal cost) {
+    public BigDecimal discount(Long couponId, BigDecimal cash) {
+        double randomDiscountRate = getRandomDiscountRate();
+        String cacheKey = "discount_" + couponId + ":" + cash + ":" + randomDiscountRate;
 
-        String cacheKey = "discount_" + couponId + ":" + cost;
-
-        logger.info("Processing discount for couponId: {} and cost: {}", couponId, cost);
+        logger.info("Processing discount for couponId: {} and cash: {}", couponId, cash);
 
         if (cache.getCache().containsKey(cacheKey)) {
             logger.info("Cache hit for key: {}", cacheKey);
@@ -40,17 +40,15 @@ public class DiscountServiceImpl implements DiscountService {
             throw new EntityNotFoundException("No such coupon " + couponId);
         }
 
-        double randomDiscountRate = getRandomDiscountRate();
-        logger.info("Applying discount rate: {} to cost: {}", randomDiscountRate, cost);
+        logger.info("Applying discount rate: {} to cash: {}", randomDiscountRate, cash);
         BigDecimal discountMultiplier = BigDecimal.valueOf(1 - randomDiscountRate);
-        BigDecimal discountedCost = cost.multiply(discountMultiplier);
+        BigDecimal discountedCost = cash.multiply(discountMultiplier);
 
-        logger.info("Caching discounted cost for key: {} with value: {}", cacheKey, discountedCost);
+        logger.info("Caching discounted cash for key: {} with value: {}", cacheKey, discountedCost);
         cache.put(cacheKey, discountedCost);
 
         return discountedCost;
     }
-
 
     private double getRandomDiscountRate() {
         Random random = new Random();

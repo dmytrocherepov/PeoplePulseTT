@@ -3,23 +3,26 @@ package org.example.peoplepulsett.repository;
 import org.example.peoplepulsett.model.Coupon;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class CouponRepository {
-    private Set<Long> coupons;
+    private final Map<Long, Coupon> coupons = new HashMap<>();;
 
 
     public CouponRepository() {
-        coupons = new HashSet<>();
-        coupons.add(1L);
-        coupons.add(2L);
-        coupons.add(5L);
+        coupons.put(1L , new Coupon(1L));
+        coupons.put(2L , new Coupon(2L));
+        coupons.put(5L , new Coupon(5L));
     }
 
     public boolean isValidCoupon(Long id) {
-        return coupons.contains(id);
+        for (Coupon coupon : coupons.values()) {
+            if (coupon.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

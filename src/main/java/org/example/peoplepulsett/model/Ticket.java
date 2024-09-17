@@ -1,8 +1,12 @@
 package org.example.peoplepulsett.model;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Ticket {
     private Long id;
     private boolean isAvailable;

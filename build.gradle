@@ -31,6 +31,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation "org.apache.logging.log4j:log4j-core:2.23.1"
     implementation "org.springframework.boot:spring-boot-starter-validation:3.3.3"
+    implementation("io.swagger.core.v3:swagger-annotations:2.2.22")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+
+
 
 
 }

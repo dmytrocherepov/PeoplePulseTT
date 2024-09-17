@@ -21,7 +21,6 @@ public class BaggageServiceImpl implements BaggageService {
         logger.info("Checking validity for baggageId: {} and destinationId: {}", baggageId, destinationId);
         String cacheKey = "baggage_" + baggageId + destinationId;
 
-
         if (cache.getCache().containsKey(cacheKey)) {
             logger.info("Cache hit for key: {}", cacheKey);
             return (Boolean) cache.getCache().get(cacheKey);
